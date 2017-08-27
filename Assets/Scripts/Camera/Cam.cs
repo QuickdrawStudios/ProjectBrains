@@ -19,8 +19,13 @@ public class Cam : MonoBehaviour
     public float xScale = 0.5F;
     public float yScale = 0.5F;
 
-	public Transform zoomTransform;
-	Vector3 zoomTarget;
+//	public Transform zoomTransform;
+//	Vector3 zoomTarget;
+
+	public Camera mainCamera;
+	public Camera secondCamera;
+	public float zoomMax, zoomMin;
+	float targetZoom;
 
 	Transform camTarget;
     Vector3 targetRotation;
@@ -44,7 +49,8 @@ public class Cam : MonoBehaviour
         targetRotation = transform.rotation.eulerAngles;
         camTarget = transform;
         camDirection = CamDirection.FRONT;
-        zoomTarget = zoomTransform.localPosition;
+        targetZoom = mainCamera.fieldOfView;
+//        zoomTarget = zoomTransform.localPosition;
 	}
 
     void Update(){
@@ -81,7 +87,7 @@ public class Cam : MonoBehaviour
     {
 
     	if(Input.GetMouseButton(2)){
-			targetRotation = transform.rotation.eulerAngles + Vector3.up * Input.GetAxis("Mouse X") * 2f;
+			targetRotation = transform.rotation.eulerAngles + Vector3.up * Input.GetAxis("Mouse X") * 2f + Vector3.forward * Input.GetAxis("Mouse Y") * 2f;
     	}
     	/*
         if (!camRotating ) {
@@ -139,22 +145,34 @@ public class Cam : MonoBehaviour
 
 	void ZoomInput(){
 		if(Input.GetAxis("Mouse ScrollWheel") > 0f){
-			if(Vector3.Distance(zoomTransform.position + zoomTransform.forward * 2f, camTarget.position) > 2f){
-				zoomTarget = zoomTransform.localPosition + zoomTransform.forward * 2f;
-        	}
+//			Vector3 localForward = zoomTransform.forward;
+//			if(Vector3.Distance(zoomTransform.position + localForward * 2f, camTarget.position) > 2f){
+//				zoomTarget = zoomTransform.localPosition + localForward * 2f;
+//        	}
+			targetZoom -= 10f;
+			if(targetZoom < zoomMin){
+				targetZoom = zoomMin;
+			}
 		} else if(Input.GetAxis("Mouse ScrollWheel") < 0f){
-			if(Vector3.Distance(zoomTransform.position - zoomTransform.forward * 2f, camTarget.position) < 16f){
-				zoomTarget = zoomTransform.localPosition - zoomTransform.forward * 2f;
+//			Vector3 localForward = zoomTransform.forward;
+//			if(Vector3.Distance(zoomTransform.position - localForward * 2f, camTarget.position) < 16f){
+//				zoomTarget = zoomTransform.localPosition - localForward * 2f;
+//			}
+			targetZoom += 10f;
+			if(targetZoom > zoomMax){
+				targetZoom = zoomMax;
 			}
 		}
     }
 
-    void CamMove()
-    {
+    void CamMove(){
 		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * rotationSpeed);
 		transform.position = Vector3.MoveTowards(transform.position, camTarget.position, Time.deltaTime * camSpeed);
 
-		zoomTransform.localPosition = Vector3.MoveTowards(zoomTransform.localPosition, zoomTarget, Time.deltaTime * camSpeed);
+//		zoomTransform.localPosition = Vector3.MoveTowards(zoomTransform.localPosition, zoomTarget, Time.deltaTime * camSpeed);
+
+		mainCamera.fieldOfView = targetZoom;
+		secondCamera.fieldOfView = targetZoom;
     }
 
     void StopRotating(){
@@ -166,7 +184,7 @@ public class Cam : MonoBehaviour
     }
 
     void OnDrawGizmos(){
-    	Gizmos.color = Color.red;
-		Gizmos.DrawLine(zoomTransform.position, zoomTransform.position + zoomTransform.forward * 100f);
+//    	Gizmos.color = Color.red;
+//		Gizmos.DrawSphere(zoomTransform.position + zoomTransform.forward * 2f, 1f);
     }
 }
