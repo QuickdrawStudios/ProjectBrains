@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//STILL NEED TO ADD LERP TO ZOOM
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -87,7 +89,7 @@ public class Cam : MonoBehaviour
     {
 
     	if(Input.GetMouseButton(2)){
-			targetRotation = transform.rotation.eulerAngles + Vector3.up * Input.GetAxis("Mouse X") * 2f + Vector3.forward * Input.GetAxis("Mouse Y") * 2f;
+			targetRotation = transform.rotation.eulerAngles + Vector3.up * Input.GetAxis("Mouse X") * 2f + Vector3.forward * Input.GetAxis("Mouse Y") * -2f;
     	}
     	/*
         if (!camRotating ) {
@@ -149,7 +151,7 @@ public class Cam : MonoBehaviour
 //			if(Vector3.Distance(zoomTransform.position + localForward * 2f, camTarget.position) > 2f){
 //				zoomTarget = zoomTransform.localPosition + localForward * 2f;
 //        	}
-			targetZoom -= 10f;
+			targetZoom -= 20f;
 			if(targetZoom < zoomMin){
 				targetZoom = zoomMin;
 			}
@@ -158,7 +160,7 @@ public class Cam : MonoBehaviour
 //			if(Vector3.Distance(zoomTransform.position - localForward * 2f, camTarget.position) < 16f){
 //				zoomTarget = zoomTransform.localPosition - localForward * 2f;
 //			}
-			targetZoom += 10f;
+			targetZoom += 20f;
 			if(targetZoom > zoomMax){
 				targetZoom = zoomMax;
 			}

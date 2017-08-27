@@ -85,13 +85,21 @@ public class Door : MonoBehaviour, IClickable {
 	}
 
 	void OnDrawGizmosSelected(){
-		Vector3 _spotA = new Vector3(spotA.transform.position.x, spotA.transform.position.y + 2f, spotA.transform.position.z);
-		Gizmos.color = new Color(1f,0f,0f,1f);
-		Gizmos.DrawSphere(_spotA,0.5f);
-		Gizmos.DrawSphere(openSpotA.position,0.2f);
-		Vector3 _spotB = new Vector3(spotB.transform.position.x, spotB.transform.position.y + 2f, spotB.transform.position.z);
-		Gizmos.color = new Color(0f,0f,1f,1f);
-		Gizmos.DrawSphere(_spotB,0.5f);
-		Gizmos.DrawSphere(openSpotB.position,0.2f);
+		if(spotA){
+			Vector3 _spotA = new Vector3(spotA.transform.position.x, spotA.transform.position.y + 2f, spotA.transform.position.z);
+			Gizmos.color = new Color(1f,0f,0f,1f);
+			Gizmos.DrawSphere(_spotA,0.5f);
+		}
+		if(openSpotA){
+			Gizmos.DrawSphere(openSpotA.position,0.2f);
+		}
+		if(spotB){
+			Vector3 _spotB = new Vector3(spotB.transform.position.x, spotB.transform.position.y + 2f, spotB.transform.position.z);
+			Gizmos.color = new Color(0f,0f,1f,1f);
+			Gizmos.DrawSphere(_spotB,0.5f);
+		}
+		if(openSpotB){
+			Gizmos.DrawSphere(openSpotB.position,0.2f);
+		}
 	}
 }

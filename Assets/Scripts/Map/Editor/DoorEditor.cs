@@ -30,17 +30,16 @@ public class DoorEditor : Editor {
 					door.spotB = Selection.gameObjects[1].GetComponent<Spot>();
 					ActiveEditorTracker.sharedTracker.isLocked = false;
 				} else {
-					Selection.activeGameObject = door.gameObject;
 					EditorUtility.DisplayDialog("Error","A door can only connect 2 spots. Please select only 2 spots.","Continue");
 				}
 			}
+			Selection.activeGameObject = door.gameObject;
 		}
 		if(GUILayout.Button("Swap Neighbors", GUILayout.Height(20))){
 			Spot tempSpot = door.spotA;
 			Undo.RecordObject(door, "Undo Neighbor Swap");
 			door.spotA = door.spotB;
 			door.spotB = tempSpot;
-			Selection.activeGameObject = door.gameObject;
 		}
 	}
 }
