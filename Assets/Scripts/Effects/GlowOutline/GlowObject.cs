@@ -33,8 +33,10 @@ public class GlowObject : MonoBehaviour
 
 	public void OnMouseEnter()
 	{
-		_targetColor = GlowColor;
-		enabled = true;
+		if(MouseControl.instance.controllable){
+			_targetColor = GlowColor;
+			enabled = true;
+		}
 	}
 
 	public void OnMouseExit()

@@ -8,6 +8,7 @@ public class Cursors : MonoBehaviour {
 
 	public Texture2D moveCursor;
 	public Texture2D searchCursor;
+	public Texture2D tradeCursor;
 
 	// Use this for initialization
 	void Start () {

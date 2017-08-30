@@ -8,7 +8,7 @@ public class Door : MonoBehaviour, IClickable {
 	public Spot spotA, spotB;
 	public Transform openSpotA, openSpotB;
 
-	bool doorOpen;
+	public bool doorOpen;
 
 	public NavMeshObstacle navMeshObstacle;
 	public Animator animator;
@@ -79,7 +79,7 @@ public class Door : MonoBehaviour, IClickable {
 		spotA.AddNeighbor(spotB);
 		spotB.AddNeighbor(spotA);
 		animator.SetTrigger("Open");
-		audioSource.Play();
+		audioSource.PlayOneShot(audioSource.clip);
 		navMeshObstacle.enabled = false;
 		doorOpen = true;
 	}

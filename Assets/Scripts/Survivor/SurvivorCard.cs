@@ -8,12 +8,19 @@ public class SurvivorCard : MonoBehaviour {
 	[HideInInspector]
 	public Survivor survivor;
 
+	[HideInInspector]
+	public TradeInventory tradeInventory;
+
 	public Button leftHandImage, rightHandImage, backPack1Image, backPack2Image, backPack3Image;
 	public Image characterImage;
 
 	public Sprite emptySlotSprite;
 
 	public Text nameText;
+
+	void Start(){
+		tradeInventory = GetComponent<TradeInventory>();
+	}
 
 	public void EndButtonClick(){
 		survivor.action.EndTurn();
@@ -73,5 +80,9 @@ public class SurvivorCard : MonoBehaviour {
 
 	public void RightHandButtonClick(){
 		survivor.inventory.RightHandItemUse();
+	}
+
+	public void ShowTradeScreen(Survivor otherSurvivor){
+		tradeInventory.ShowTradeScreen(otherSurvivor);
 	}
 }

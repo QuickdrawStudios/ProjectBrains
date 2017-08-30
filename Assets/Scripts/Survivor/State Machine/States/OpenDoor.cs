@@ -24,7 +24,9 @@ public class OpenDoor : IState {
 		AnimatorStateInfo animatorState = survivor.animator.GetCurrentAnimatorStateInfo(0);
 		AnimatorStateInfo doorAnimatorState = door.animator.GetCurrentAnimatorStateInfo(0);
 		if(animatorState.IsName("OpenDoor") && animatorState.normalizedTime >= 0.7f){
-			door.OpenDoor();
+			if(!door.doorOpen){
+				door.OpenDoor();
+			}
 		}
 		if(doorAnimatorState.IsName("DoorOpening") && doorAnimatorState.normalizedTime >= 0.95f){
 			survivor.ChangeState(new Move(survivor, moveSpot, distance));

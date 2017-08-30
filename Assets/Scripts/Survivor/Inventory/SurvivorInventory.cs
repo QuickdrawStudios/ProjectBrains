@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SurvivorInventory : MonoBehaviour {
 
+	[HideInInspector]
 	public Survivor survivor;
-
+	//[HideInInspector]
 	public Item leftHand, rightHand, backPack1, backPack2, backPack3;
 
 	public void PickUpItem(Item item, SurvivorCard survivorCard){

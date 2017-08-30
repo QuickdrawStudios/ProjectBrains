@@ -59,7 +59,8 @@ public class Survivors : MonoBehaviour {
 	void SpawnSurvivorCard(Survivor survivor){
 		GameObject cardClone = Instantiate(survivorCardPrefab, survivorCardParent, false);
 		survivor.card = cardClone.GetComponent<SurvivorCard>();
-		cardClone.GetComponent<InventoryScreen>().survivor = survivor;
+		cardClone.GetComponent<RearrangeInventory>().survivor = survivor;
+		cardClone.GetComponent<TradeInventory>().survivor = survivor;
 		survivor.card.survivor = survivor;
 		survivor.card.nameText.text = survivor._name;
 		survivor.card.characterImage.sprite = survivor.characterImage;

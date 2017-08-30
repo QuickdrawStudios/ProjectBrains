@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryScreen : MonoBehaviour {
+public class RearrangeInventory : MonoBehaviour {
 
 	[HideInInspector]
 	public Survivor survivor;
@@ -13,11 +13,13 @@ public class InventoryScreen : MonoBehaviour {
 	public GameObject inventoryItemUIPrefab;
 
 	public void ShowInventoryScreen(){
+		MouseControl.instance.controllable = false;
 		PopulateItems();
 		inventoryScreen.SetActive(true);
 	}
 
 	void HideInventoryScreen(){
+		MouseControl.instance.controllable = true;
 		RemoveItems();
 		inventoryScreen.SetActive(false);
 	}
