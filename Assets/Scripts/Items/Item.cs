@@ -11,6 +11,7 @@ public abstract class Item : MonoBehaviour {
 	}
 
 	public Type type;
+	public int id;
 
 	public GameObject objectPrefab;
 	[HideInInspector]

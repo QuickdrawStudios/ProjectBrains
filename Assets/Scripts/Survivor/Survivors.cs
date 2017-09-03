@@ -19,6 +19,7 @@ public class Survivors : MonoBehaviour {
 
 	public int numberOfSurvivors;
 
+	public List<string> characterNames = new List<string>();
 	public List<Sprite> characterImages = new List<Sprite>();
 
 	void Start () {
@@ -31,24 +32,8 @@ public class Survivors : MonoBehaviour {
 		for(int i = 0; i < numberOfSurvivors; i++){
 			GameObject survivorClone = Instantiate(survivorPrefab);
 			Survivor survivor = survivorClone.GetComponent<Survivor>();
-			survivor.inventory = survivor.gameObject.GetComponent<SurvivorInventory>();
-			survivor.inventory.survivor = survivor;
-			survivor.action = survivor.gameObject.GetComponent<SurvivorAction>();
-			survivor.animator = survivor.gameObject.GetComponent<Animator>();
-			switch (survivors.Count) {
-				case 0:
-					survivor._name = "J o s h";
-					break;
-				case 1:
-					survivor._name = "N e d";
-					break;
-				case 2:
-					survivor._name = "D o u g";
-					break;
-				case 3:
-					survivor._name = "A m y";
-					break;
-			}
+			survivor.SetUp();
+			survivor._name = characterNames[survivors.Count];
 			survivor.characterImage = characterImages[survivors.Count];
 			survivors.Add(survivor);
 			survivor.ChangeState(new Spawn(survivor, spawnSpot));
@@ -59,9 +44,7 @@ public class Survivors : MonoBehaviour {
 	void SpawnSurvivorCard(Survivor survivor){
 		GameObject cardClone = Instantiate(survivorCardPrefab, survivorCardParent, false);
 		survivor.card = cardClone.GetComponent<SurvivorCard>();
-		cardClone.GetComponent<RearrangeInventory>().survivor = survivor;
-		cardClone.GetComponent<TradeInventory>().survivor = survivor;
-		survivor.card.survivor = survivor;
+		survivor.card.SetUp(survivor);
 		survivor.card.nameText.text = survivor._name;
 		survivor.card.characterImage.sprite = survivor.characterImage;
 	}

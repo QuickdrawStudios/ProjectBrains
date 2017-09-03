@@ -7,66 +7,67 @@ public class SurvivorInventory : MonoBehaviour {
 	[HideInInspector]
 	public Survivor survivor;
 	//[HideInInspector]
-	public Item leftHand, rightHand, backPack1, backPack2, backPack3;
+	//public Item leftHand, rightHand, backPack1, backPack2, backPack3;
+	public Item[] items = new Item[5];
 
 	public void PickUpItem(Item item, SurvivorCard survivorCard){
 		if(item.type == Item.Type.WEAPON){
-			if(leftHand == null){
-				leftHand = item;
-				survivorCard.LeftHandEquip(item);
-			} else if(rightHand == null){
-				rightHand = item;
-				survivorCard.RightHandEquip(item);
-			} else if(backPack1 == null){
-				backPack1 = item;
-				survivorCard.BackPack1Equip(item);
-			} else if(backPack2 == null){
-				backPack2 = item;
-				survivorCard.BackPack2Equip(item);
-			} else if(backPack3 == null){
-				backPack3 = item;
-				survivorCard.BackPack3Equip(item);
+			if(items[(int)ItemSlot.LEFT_HAND] == null){
+				items[(int)ItemSlot.LEFT_HAND] = item;
+				survivorCard.EquipItem(item, ItemSlot.LEFT_HAND);
+			} else if(items[(int)ItemSlot.RIGHT_HAND] == null){
+				items[(int)ItemSlot.RIGHT_HAND] = item;
+				survivorCard.EquipItem(item, ItemSlot.RIGHT_HAND);
+			} else if(items[(int)ItemSlot.BACKPACK_1] == null){
+				items[(int)ItemSlot.BACKPACK_1] = item;
+				survivorCard.EquipItem(item, ItemSlot.BACKPACK_1);
+			} else if(items[(int)ItemSlot.BACKPACK_2] == null){
+				items[(int)ItemSlot.BACKPACK_2] = item;
+				survivorCard.EquipItem(item, ItemSlot.BACKPACK_2);
+			} else if(items[(int)ItemSlot.BACKPACK_3] == null){
+				items[(int)ItemSlot.BACKPACK_3] = item;
+				survivorCard.EquipItem(item, ItemSlot.BACKPACK_3);
 			}
 		} else {
-			if(backPack1 == null){
-				backPack1 = item;
-				survivorCard.BackPack1Equip(item);
-			} else if(backPack2 == null){
-				backPack2 = item;
-				survivorCard.BackPack2Equip(item);
-			} else if(backPack3 == null){
-				backPack3 = item;
-				survivorCard.BackPack3Equip(item);
-			} else if(leftHand == null){
-				leftHand = item;
-				survivorCard.LeftHandEquip(item);
-			} else if(rightHand == null){
-				rightHand = item;
-				survivorCard.RightHandEquip(item);
+			if(items[(int)ItemSlot.BACKPACK_1] == null){
+				items[(int)ItemSlot.BACKPACK_1] = item;
+				survivorCard.EquipItem(item, ItemSlot.BACKPACK_1);
+			} else if(items[(int)ItemSlot.BACKPACK_2] == null){
+				items[(int)ItemSlot.BACKPACK_2] = item;
+				survivorCard.EquipItem(item, ItemSlot.BACKPACK_2);
+			} else if(items[(int)ItemSlot.BACKPACK_3] == null){
+				items[(int)ItemSlot.BACKPACK_3] = item;
+				survivorCard.EquipItem(item, ItemSlot.BACKPACK_3);
+			} else if(items[(int)ItemSlot.LEFT_HAND] == null){
+				items[(int)ItemSlot.LEFT_HAND] = item;
+				survivorCard.EquipItem(item, ItemSlot.LEFT_HAND);
+			} else if(items[(int)ItemSlot.RIGHT_HAND] == null){
+				items[(int)ItemSlot.RIGHT_HAND] = item;
+				survivorCard.EquipItem(item, ItemSlot.RIGHT_HAND);
 			}
 		}
 	}
 
 	public void LeftHandItemUse(){
-		if(leftHand != null){
-			leftHand.UseItem(survivor);
+		if(items[(int)ItemSlot.LEFT_HAND] != null){
+			items[(int)ItemSlot.LEFT_HAND].UseItem(survivor);
 		}
 	}
 
 	public void RightHandItemUse(){
-		if(rightHand != null){
-			rightHand.UseItem(survivor);
+		if(items[(int)ItemSlot.RIGHT_HAND] != null){
+			items[(int)ItemSlot.RIGHT_HAND].UseItem(survivor);
 		}
 	}
 
 	public Item ChooseDoorOpener(){
-		if(leftHand != null){
-			if(leftHand.canOpenDoor){
-				return leftHand;
+		if(items[(int)ItemSlot.LEFT_HAND] != null){
+			if(items[(int)ItemSlot.LEFT_HAND].canOpenDoor){
+				return items[(int)ItemSlot.LEFT_HAND];
 			} else {
-				if(rightHand != null){
-					if(rightHand.canOpenDoor){
-						return rightHand;
+				if(items[(int)ItemSlot.RIGHT_HAND] != null){
+					if(items[(int)ItemSlot.RIGHT_HAND].canOpenDoor){
+						return items[(int)ItemSlot.RIGHT_HAND];
 					} else {
 						return null;
 					}
@@ -74,9 +75,9 @@ public class SurvivorInventory : MonoBehaviour {
 					return null;
 				}
 			}
-		} else if(rightHand != null){
-			if(rightHand.canOpenDoor){
-				return rightHand;
+		} else if(items[(int)ItemSlot.RIGHT_HAND] != null){
+			if(items[(int)ItemSlot.RIGHT_HAND].canOpenDoor){
+				return items[(int)ItemSlot.RIGHT_HAND];
 			} else {
 				return null;
 			}
@@ -85,53 +86,63 @@ public class SurvivorInventory : MonoBehaviour {
 		}
 	}
 
-	public void PickUpLeftHand(Item item){
-		leftHand = item;
-		survivor.card.LeftHandEquip(leftHand);
+	public void PickUpItem(Item item, ItemSlot slot){
+		items[(int)slot] = item;
+		survivor.card.EquipItem(items[(int)slot], slot);
 	}
 
-	public void DropLeftHand(){
-		leftHand = null;
-		survivor.card.LeftHandEquip(leftHand);
+	public void DropItem(ItemSlot slot){
+		items[(int)slot] = null;
+		survivor.card.EquipItem(items[(int)slot], slot);
 	}
 
-	public void PickUpRightHand(Item item){
-		rightHand = item;
-		survivor.card.RightHandEquip(rightHand);
-	}
-
-	public void DropRightHand(){
-		rightHand = null;
-		survivor.card.RightHandEquip(rightHand);
-	}
-
-	public void PickUpBackPack1(Item item){
-		backPack1 = item;
-		survivor.card.BackPack1Equip(backPack1);
-	}
-
-	public void DropBackPack1(){
-		backPack1 = null;
-		survivor.card.BackPack1Equip(backPack1);
-	}
-
-	public void PickUpBackPack2(Item item){
-		backPack2 = item;
-		survivor.card.BackPack2Equip(backPack2);
-	}
-
-	public void DropBackPack2(){
-		backPack2 = null;
-		survivor.card.BackPack2Equip(backPack2);
-	}
-
-	public void PickUpBackPack3(Item item){
-		backPack3 = item;
-		survivor.card.BackPack3Equip(backPack3);
-	}
-
-	public void DropBackPack3(){
-		backPack3 = null;
-		survivor.card.BackPack3Equip(backPack3);
-	}
+//	public void PickUpLeftHand(Item item){
+//		items[ItemSlot.LEFT_HAND] = item;
+//		survivor.card.LeftHandEquip(items[ItemSlot.LEFT_HAND]);
+//	}
+//
+//	public void DropLeftHand(){
+//		items[ItemSlot.LEFT_HAND] = null;
+//		survivor.card.LeftHandEquip(items[ItemSlot.LEFT_HAND]);
+//	}
+//
+//	public void PickUpRightHand(Item item){
+//		items[ItemSlot.RIGHT_HAND] = item;
+//		survivor.card.RightHandEquip(items[ItemSlot.RIGHT_HAND]);
+//	}
+//
+//	public void DropRightHand(){
+//		items[ItemSlot.RIGHT_HAND] = null;
+//		survivor.card.RightHandEquip(items[ItemSlot.RIGHT_HAND]);
+//	}
+//
+//	public void PickUpBackPack1(Item item){
+//		items[ItemSlot.BACKPACK_1] = item;
+//		survivor.card.BackPack1Equip(items[ItemSlot.BACKPACK_1]);
+//	}
+//
+//	public void DropBackPack1(){
+//		items[ItemSlot.BACKPACK_1] = null;
+//		survivor.card.BackPack1Equip(items[ItemSlot.BACKPACK_1]);
+//	}
+//
+//	public void PickUpBackPack2(Item item){
+//		items[ItemSlot.BACKPACK_2] = item;
+//		survivor.card.BackPack2Equip(items[ItemSlot.BACKPACK_2]);
+//	}
+//
+//	public void DropBackPack2(){
+//		items[ItemSlot.BACKPACK_2] = null;
+//		survivor.card.BackPack2Equip(items[ItemSlot.BACKPACK_2]);
+//	}
+//
+//	public void PickUpBackPack3(Item item){
+//		items[ItemSlot.BACKPACK_3] = item;
+//		survivor.card.BackPack3Equip(items[ItemSlot.BACKPACK_3]);
+//	}
+//
+//	public void DropBackPack3(){
+//		items[ItemSlot.BACKPACK_3] = null;
+//		survivor.card.BackPack3Equip(items[ItemSlot.BACKPACK_3]);
+//	}
 }

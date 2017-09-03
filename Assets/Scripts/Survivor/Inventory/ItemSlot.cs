@@ -1,0 +1,7 @@
+﻿public enum ItemSlot {
+	LEFT_HAND,
+	RIGHT_HAND,
+	BACKPACK_1,
+	BACKPACK_2,
+	BACKPACK_3
+}

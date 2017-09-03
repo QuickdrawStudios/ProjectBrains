@@ -24,9 +24,13 @@ public class Survivor : MonoBehaviour {
 	//[HideInInspector]
 	public Spot currentSpot;
 
-	void Start(){
+	public void SetUp(){
 		navMeshAgent = GetComponent<NavMeshAgent>();
 		navMeshAgent.updatePosition = true;
+		inventory = GetComponent<SurvivorInventory>();
+		inventory.survivor = this;
+		action = GetComponent<SurvivorAction>();
+		animator = GetComponent<Animator>();
 	}
 
 	void Update(){

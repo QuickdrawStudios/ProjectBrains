@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SurvivorClick : MonoBehaviour, IClickable {
 
+	[HideInInspector]
 	public Survivor thisSurvivor;
 
 	void Start(){
@@ -14,7 +15,7 @@ public class SurvivorClick : MonoBehaviour, IClickable {
 		if(item == null){
 			if(thisSurvivor != survivor){
 				if(survivor.currentSpot == thisSurvivor.currentSpot){
-					if(survivor.action.GetRemainingMoveActions() > 0){
+					if(survivor.action.GetRemainingActions() > 0){
 						Cursor.SetCursor(Cursors.instance.tradeCursor,Vector2.zero,CursorMode.Auto);
 					} else {
 						Cursor.SetCursor(null,Vector2.zero,CursorMode.Auto);
@@ -34,8 +35,7 @@ public class SurvivorClick : MonoBehaviour, IClickable {
 		if(item == null){
 			if(thisSurvivor != survivor){
 				if(survivor.currentSpot == thisSurvivor.currentSpot){
-					if(survivor.action.GetRemainingMoveActions() > 0){
-						//survivor.ChangeState(new Move(survivor, this, moveDistance));
+					if(survivor.action.GetRemainingActions() > 0){
 						survivor.card.ShowTradeScreen(thisSurvivor);
 					}
 				}

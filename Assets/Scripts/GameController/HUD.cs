@@ -8,7 +8,7 @@ public class HUD : MonoBehaviour {
 	public static HUD instance;
 
 	public GameObject dialogBox;
-	public Text dialogBoxText, dialogBoxButtonText;
+	public Text dialogBoxText;
 
 	void Awake(){
 		instance = this;
@@ -24,15 +24,13 @@ public class HUD : MonoBehaviour {
 		survivor.card.ShowCard();
 	}
 
-	public void ShowDialogBox(string dialogText, string buttonText){
+	public void ShowDialogBox(string dialogText){
 		dialogBoxText.text = dialogText;
-		dialogBoxButtonText.text = buttonText;
 		dialogBox.SetActive(true);
 	}
 
 	public void HideDialogBox(){
 		dialogBoxText.text = "";
-		dialogBoxButtonText.text = "";
 		dialogBox.SetActive(false);
 	}
 }

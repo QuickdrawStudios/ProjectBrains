@@ -14,7 +14,8 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 	public InventorySlot inventorySlot;
 
-	public Survivor survivor;
+	//public Survivor survivor;
+	//public Storage storage;
 
 	public void OnBeginDrag(PointerEventData eventData){
 		transform.parent.SetAsLastSibling();
