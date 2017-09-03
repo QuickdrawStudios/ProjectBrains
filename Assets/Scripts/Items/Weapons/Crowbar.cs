@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crowbar : Item {
-	
+public class Crowbar : Weapon {
+
 }

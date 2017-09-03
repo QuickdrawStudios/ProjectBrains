@@ -26,6 +26,9 @@ public class Survivors : MonoBehaviour {
 		instance = this;
 		SpawnSurvivors();
 		ActivateSurvivor(survivors[activeSurvivorIndex]);
+		if(!spawnSpot){
+			Debug.LogError("Assign a spawn spot for suvivors.");
+		}
 	}
 
 	void SpawnSurvivors(){

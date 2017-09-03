@@ -30,4 +30,5 @@ public abstract class Item : MonoBehaviour {
 	public void DestroyObject(){
 		Destroy(_object);
 	}
+
 }
