@@ -12,6 +12,8 @@ public class SurvivorAction : MonoBehaviour {
 	public int remainingMoveActions;
 	public int remainingSearchActions;
 
+	public SurvivorCard survivorCard;
+
 	void Awake(){
 		remainingActions = numberOfActions;
 		remainingMoveActions = numberOfMoveActions;
@@ -65,11 +67,15 @@ public class SurvivorAction : MonoBehaviour {
 		return remainingActions + remainingSearchActions;
 	}
 
+	public int GetRemainingSearchOnlyActions(){
+		return remainingSearchActions;
+	}
 	public int GetRemainingActions(){
 		return remainingActions;
 	}
 
 	void CheckForEndTurn(){
+		survivorCard.UpdateActionsDisplay(GetRemainingActions(), GetRemainingMoveOnlyActions(), GetRemainingSearchOnlyActions());
 		if(remainingActions <= 0 && remainingMoveActions <= 0 && remainingSearchActions <= 0){
 			EndTurn();
 		}
@@ -83,5 +89,6 @@ public class SurvivorAction : MonoBehaviour {
 		remainingActions = numberOfActions;
 		remainingMoveActions = numberOfMoveActions;
 		remainingSearchActions = numberOfSearchActions;
+		survivorCard.UpdateActionsDisplay(GetRemainingActions(), GetRemainingMoveOnlyActions(), GetRemainingSearchOnlyActions());
 	}
 }

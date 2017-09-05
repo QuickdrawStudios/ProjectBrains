@@ -23,8 +23,11 @@ public class SurvivorCard : MonoBehaviour {
 
 	public Text nameText;
 
+	public Text actionText, moveActionText, searchActionText;
+
 	public void SetUp(Survivor survivor){
 		this.survivor = survivor;
+		survivor.action.survivorCard = this;
 		rearrangeInventory = GetComponent<RearrangeInventory>();
 		tradeInventory = GetComponent<TradeInventory>();
 		storeInventory = GetComponent<StoreInventory>();
@@ -96,5 +99,20 @@ public class SurvivorCard : MonoBehaviour {
 
 	public void ShowStoreScreen(Storage storage){
 		storeInventory.ShowStoreScreen(storage);
+	}
+
+	public void UpdateActionsDisplay(int actions, int moveActions, int searchActions){
+		actionText.text = actions.ToString() + " Actions";
+		if(moveActions > 0) {
+			moveActionText.text = moveActions.ToString() + " Move Actions";
+		} else {
+			moveActionText.text = "";
+		}
+		if(searchActions > 0) {
+			searchActionText.text = searchActions.ToString() + " Search Actions";
+		} else {
+			searchActionText.text = "";
+		}
+
 	}
 }
